@@ -1,0 +1,51 @@
+﻿@model EntityLayer.Concrete.Feature
+
+@{
+    ViewData["Title"] = "Öne Çıkanları Düzenle";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-success mb-4">
+                <i class="mdi mdi-account-star mr-2"></i> Ana Sayfa Öne Çıkan Alanı Düzenle
+            </h4>
+
+            <form class="forms-sample" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="FeatureID" />
+                <input type="hidden" asp-for="ImageUrl" />
+
+                <div class="form-group">
+                    <label class="text-muted font-weight-bold">Başlık (Örn: MERHABA)</label>
+                    <input type="text" class="form-control text-white" asp-for="Header" />
+                </div>
+
+                <div class="form-group">
+                    <label class="text-muted font-weight-bold">Ad Soyad (Örn: Ben Tuğrul Şahar)</label>
+                    <input type="text" class="form-control text-white" asp-for="Name" />
+                </div>
+
+                <div class="form-group">
+                    <label class="text-muted font-weight-bold">Alt Başlık (Örn: Bilgisayar Mühendisliği Öğrencisi)</label>
+                    <input type="text" class="form-control text-white" asp-for="Title" />
+                </div>
+
+                <div class="form-group row align-items-center mt-4">
+                    <div class="col-auto">
+                        <label class="text-muted font-weight-bold d-block">Mevcut Görsel</label>
+                        <img src="@Model.ImageUrl" style="width: 110px; height: 110px; border-radius: 10px; object-fit: cover;" class="border border-secondary" onerror="this.src='/corona-free-dark-bootstrap-admin-template-1.0.0/template/assets/images/faces/face1.jpg';" />
+                    </div>
+                    <div class="col">
+                        <label class="text-muted font-weight-bold">Yeni Profil Fotoğrafı Yükle (Değiştirmeyecekseniz Boş Bırakın)</label>
+                        <input type="file" class="form-control text-white" name="Picture" accept="image/*" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success mt-4">
+                    <i class="mdi mdi-content-save mr-1"></i> Değişiklikleri Kaydet
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿@model EntityLayer.Concrete.Service
+
+@{
+    ViewData["Title"] = "EditService";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("EditService", "Service", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-description"> Hizmet Düzenleme Paneli </p>
+
+                @Html.HiddenFor(x => x.ServiceID)
+                @Html.HiddenFor(x => x.ImageUrl)
+
+                <br />
+                <label>Hizmet Başlığı</label>
+                @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Title, "", new { @class = "text-danger" })
+                <br />
+
+                <label>Hizmet Görseli (Değiştirmek istemiyorsanız boş bırakın)</label>
+                @if (Model != null && !string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <div class="mb-2">
+                        <img src="@Model.ImageUrl" alt="Mevcut Görsel" style="width: 80px; height: 80px; object-fit: contain; background: #fff; padding: 5px; border-radius: 6px; display: block; margin-bottom: 8px;" />
+                    </div>
+                }
+                <input type="file" name="ImageFile" class="form-control" accept="image/*" />
+                <br />
+
+                <button type="submit" class="btn btn-outline-warning">Güncelle</button>
+            </div>
+        </div>
+    </div>
+}

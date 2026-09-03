@@ -1,0 +1,40 @@
+@model List<Core_Proje.Models.UserRoleAssignViewModel>
+
+@{
+    ViewData["Title"] = "Rol Ata";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-warning mb-2">
+                <i class="mdi mdi-account-key mr-2"></i> Kullanıcı Rol Yetkileri Düzenle
+            </h4>
+            <p class="text-muted mb-4"><strong>Seçili Kullanıcı:</strong> @ViewBag.UserName</p>
+
+            <form method="post" asp-action="AssignRole">
+                @Html.AntiForgeryToken()
+
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="form-check form-check-warning mb-3">
+                        <label class="form-check-label text-white" style="font-size: 1.1rem; cursor: pointer;">
+                            <input type="checkbox" class="form-check-input" asp-for="@Model[i].RoleExist">
+                            @Model[i].RoleName
+                        </label>
+                        <input type="hidden" asp-for="@Model[i].RoleId" />
+                        <input type="hidden" asp-for="@Model[i].RoleName" />
+                    </div>
+                }
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-warning mr-2">
+                        <i class="mdi mdi-check mr-1"></i> Rol Değişikliklerini Kaydet
+                    </button>
+                    <a href="/Role/UserList/" class="btn btn-dark">İptal</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

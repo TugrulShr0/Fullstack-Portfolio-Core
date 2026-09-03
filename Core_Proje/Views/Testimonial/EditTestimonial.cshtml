@@ -1,0 +1,54 @@
+﻿@model EntityLayer.Concrete.Testimonial
+
+@{
+    ViewData["Title"] = "EditTestimonial";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<form asp-action="EditTestimonial" method="post" enctype="multipart/form-data">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-description"> Referans Düzenleme Paneli </p>
+
+                @* ID ve eski resim yolunun kaybolmaması için gizli alanlar *@
+                <input type="hidden" asp-for="TestimonialID" />
+                <input type="hidden" asp-for="ImageUrl" />
+
+                <div class="form-group">
+                    <label>Ad Soyad</label>
+                    <input type="text" class="form-control" asp-for="ClientName" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Şirket</label>
+                    <input type="text" class="form-control" asp-for="Company" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Ünvan / Pozisyon (Title)</label>
+                    <input type="text" class="form-control" asp-for="Title">
+                </div>
+
+                <div class="form-group">
+                    <label>Referans Görseli (Değiştirmek istemiyorsanız boş bırakın)</label>
+                    @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+                    {
+                        <div class="mb-2">
+                            <img src="@Model.ImageUrl" alt="Mevcut Görsel" style="width: 70px; height: 70px; object-fit: cover; border-radius: 50%; display: block;" />
+                        </div>
+                    }
+                    <input type="file" name="ImageFile" class="form-control" accept="image/*">
+                </div>
+
+                <div class="form-group">
+                    <label>Yorum</label>
+                    <textarea class="form-control" asp-for="Comment" rows="6" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-warning mr-2">Güncelle</button>
+                <a asp-action="Index" class="btn btn-dark">İptal</a>
+            </div>
+        </div>
+    </div>
+</form>

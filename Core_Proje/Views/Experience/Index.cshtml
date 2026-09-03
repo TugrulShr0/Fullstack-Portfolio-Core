@@ -1,0 +1,80 @@
+﻿@using EntityLayer.Concrete
+@model List<Experience>
+
+@{
+    ViewData["Title"] = "Deneyim Listesi";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="card-title mb-0">
+                    <i class="mdi mdi-briefcase-check text-primary mr-2"></i> Deneyim Listesi
+                </h4>
+                <a href="/Experience/AddExperience/" class="btn btn-outline-success btn-icon-text">
+                    <i class="mdi mdi-plus-circle-outline btn-icon-prepend"></i> Yeni Deneyim Ekle
+                </a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover text-white align-middle">
+                    <thead>
+                        <tr class="text-muted">
+                            <th style="width: 5%;">#</th>
+                            <th style="width: 10%;">GÖRSEL</th>
+                            <th style="width: 25%;">BAŞLIK</th>
+                            <th style="width: 20%;">TARİH</th>
+                            <th style="width: 25%;">AÇIKLAMA</th>
+                            <th style="width: 7.5%;" class="text-center">SİL</th>
+                            <th style="width: 7.5%;" class="text-center">GÜNCELLE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            int count = 0;
+                            foreach (var item in Model)
+                            {
+                                count++;
+                                <tr>
+                                    <td><span class="badge badge-outline-primary">@count</span></td>
+                                    <td>
+                                        <img src="@item.ImageUrl" alt="@item.Name" style="width: 42px; height: 42px; border-radius: 6px; object-fit: cover;" onerror="this.src='/corona-free-dark-bootstrap-admin-template-1.0.0/template/assets/images/faces/face1.jpg';" />
+                                    </td>
+                                    <td class="font-weight-bold">@item.Name</td>
+                                    <td>
+                                        <label class="badge badge-dark text-light border border-secondary">
+                                            <i class="mdi mdi-calendar mr-1"></i>@item.Date
+                                        </label>
+                                    </td>
+                                    <td class="text-muted text-wrap">@item.Description</td>
+                                    <td class="text-center">
+                                        <a href="/Experience/DeleteExperience/@item.ExperinceID" onclick="return confirm('Bu deneyimi silmek istediğinize emin misiniz?');" class="btn btn-outline-danger btn-sm">
+                                            <i class="mdi mdi-delete"></i> Sil
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="/Experience/EditExperience/@item.ExperinceID" class="btn btn-outline-warning btn-sm">
+                                            <i class="mdi mdi-lead-pencil"></i> Düzenle
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center text-muted p-4">
+                                    <i class="mdi mdi-folder-open-outline display-4 d-block mb-2"></i>
+                                    Henüz eklenmiş bir deneyim bulunmuyor.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

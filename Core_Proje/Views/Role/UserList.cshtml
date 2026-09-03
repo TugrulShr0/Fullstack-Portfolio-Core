@@ -1,0 +1,57 @@
+@using EntityLayer.Concrete
+@model List<WriterUser>
+
+@{
+    ViewData["Title"] = "Kullanıcı Rol Listesi";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Kullanıcı Rol Atama Listesi</h4>
+            <p class="card-description"> Kullanıcılara yetki ve rol tanımlamak için işlem yapın </p>
+
+            <div class="table-responsive">
+                <table class="table table-hover text-white">
+                    <thead>
+                        <tr class="text-muted">
+                            <th>#</th>
+                            <th>AD SOYAD</th>
+                            <th>KULLANICI ADI</th>
+                            <th>E-POSTA</th>
+                            <th>ROL ATA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            int count = 0;
+                            foreach (var item in Model)
+                            {
+                                count++;
+                                <tr>
+                                    <td><span class="badge badge-outline-primary">@count</span></td>
+                                    <td class="font-weight-bold">@item.Name @item.Surname</td>
+                                    <td><label class="badge badge-dark text-light border border-secondary">@item.UserName</label></td>
+                                    <td>@item.Email</td>
+                                    <td>
+                                        <a href="/Role/AssignRole/@item.Id" class="btn btn-outline-warning btn-sm">
+                                            <i class="mdi mdi-account-key mr-1"></i> Rolleri Yönet
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-4">Kayıtlı kullanıcı bulunamadı.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

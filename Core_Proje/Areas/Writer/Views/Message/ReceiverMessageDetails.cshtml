@@ -1,0 +1,33 @@
+﻿@model EntityLayer.Concrete.WriterMessage
+
+@{
+    ViewData["Title"] = "ReceiverMessageDetails";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="card-title mb-0">@Model.Subject</h4>
+                <span class="badge badge-outline-primary">@Convert.ToDateTime(Model.Date).ToString("dd MMMM yyyy HH:mm")</span>
+            </div>
+
+            <div class="p-3 mb-4 rounded bg-light border">
+                <p class="mb-1"><strong>Kimden:</strong> @Model.SenderName (@Model.Sender)</p>
+                <p class="mb-0 text-muted small"><strong>Kime:</strong> @Model.ReceiverName (@Model.Receiver)</p>
+            </div>
+
+            <div class="p-4 border rounded bg-white shadow-sm mb-4" style="min-height: 200px; white-space: pre-wrap;">
+                @Model.MessageContent
+            </div>
+
+            <div class="d-flex gap-2">
+                <a href="/Writer/Message/SenderMessage" class="btn btn-outline-dark">
+                    <i class="ti-arrow-left"></i> Giden Kutusuna Dön
+                </a>
+              
+            </div>
+        </div>
+    </div>
+</div>

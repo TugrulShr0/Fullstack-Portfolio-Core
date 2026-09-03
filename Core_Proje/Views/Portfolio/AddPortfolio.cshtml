@@ -1,0 +1,55 @@
+﻿@model EntityLayer.Concrete.Portfolio
+
+@{
+    ViewData["Title"] = "AddPortfolio";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("AddPortfolio", "Portfolio", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-description"> Yeni Proje Ekleme Paneli </p>
+
+                <br />
+                @Html.Label("Proje Başlığı")
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+                <br />
+
+                <label>Büyük Proje Görseli (Görsel 1)</label>
+                <input type="file" name="ImageFile1" class="form-control" accept="image/*" />
+                @Html.ValidationMessageFor(x => x.ImageUrl, "", new { @class = "text-danger" })
+                <br />
+
+                <label>Detay / Önizleme Görseli (Görsel 2)</label>
+                <input type="file" name="ImageFile2" class="form-control" accept="image/*" />
+                @Html.ValidationMessageFor(x => x.ImageUrl2, "", new { @class = "text-danger" })
+                <br />
+
+                <label>Platform / Teknoloji Küçük İkonu (Admin Paneli İçin)</label>
+                <input type="file" name="PlatformFile" class="form-control" accept="image/*" />
+                @Html.ValidationMessageFor(x => x.Platform, "", new { @class = "text-danger" })
+                <br />
+
+                <label>Proje URL</label>
+                @Html.TextBoxFor(x => x.ProjectUrl, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.ProjectUrl, "", new { @class = "text-danger" })
+                <br />
+
+                <label>Fiyat</label>
+                @Html.TextBoxFor(x => x.Price, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Price, "", new { @class = "text-danger" })
+                <br />
+
+                <label>Tamamlanma Oranı</label>
+                @Html.TextBoxFor(x => x.Value, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Value, "", new { @class = "text-danger" })
+                <br />
+
+                <button type="submit" class="btn btn-info">Kaydet</button>
+            </div>
+        </div>
+    </div>
+}

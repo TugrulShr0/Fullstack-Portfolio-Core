@@ -1,0 +1,40 @@
+﻿@model EntityLayer.Concrete.WriterMessage
+
+@{
+    ViewData["Title"] = "AdminMessageSend";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-primary">Yeni Mesaj Gönderme Paneli</h4>
+            <p class="card-description text-muted"> Sisteme kayıtlı kullanıcılara yeni mesaj iletin </p>
+
+            <form class="forms-sample mt-4" method="post">
+                <div class="form-group">
+                    <label>Alıcı Mail Adresi</label>
+                    @Html.TextBoxFor(x => x.Receiver, new { @class = "form-control", @placeholder = "ornek@gmail.com", required = "required" })
+                    @Html.ValidationMessageFor(x => x.Receiver, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <label>Konu</label>
+                    @Html.TextBoxFor(x => x.Subject, new { @class = "form-control", @placeholder = "Mesaj Konusu", required = "required" })
+                    @Html.ValidationMessageFor(x => x.Subject, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <label>Mesaj İçeriği</label>
+                    @Html.TextAreaFor(x => x.MessageContent, 8, 3, new { @class = "form-control", @placeholder = "Mesajınızı buraya yazınız...", required = "required" })
+                    @Html.ValidationMessageFor(x => x.MessageContent, "", new { @class = "text-danger" })
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">
+                    <i class="mdi mdi-send"></i> Gönder
+                </button>
+                <a asp-action="SenderMessageList" class="btn btn-dark">İptal</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+@model EntityLayer.Concrete.Announcement
+
+@{
+    ViewData["Title"] = "Yeni Duyuru Ekle";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-success mb-4">
+                <i class="mdi mdi-plus-circle-outline mr-2"></i> Yeni Duyuru Yayınlama Paneli
+            </h4>
+
+            <form class="forms-sample" method="post" asp-action="AddAnnouncement">
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    <label class="text-muted font-weight-bold">Duyuru Başlığı</label>
+                    <input type="text" class="form-control text-white" asp-for="Title" placeholder="Duyuru başlığını giriniz..." required />
+                </div>
+
+                <div class="form-group">
+                    <label class="text-muted font-weight-bold">Duyuru Türü / Kategori (Örn: Yeni Yazı, Bootcamp, Workshop, Konferans)</label>
+                    <input type="text" class="form-control text-white" asp-for="Status" placeholder="Örn: Yeni Yazı" required />
+                </div>
+
+                <div class="form-group">
+                    <label class="text-muted font-weight-bold">Duyuru İçeriği</label>
+                    <textarea class="form-control text-white" asp-for="Content" rows="6" placeholder="Duyuru detaylarını buraya yazınız..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-success mr-2">
+                    <i class="mdi mdi-send mr-1"></i> Duyuruyu Yayınla
+                </button>
+                <a href="/Announcement/Index/" class="btn btn-dark">İptal</a>
+            </form>
+        </div>
+    </div>
+</div>

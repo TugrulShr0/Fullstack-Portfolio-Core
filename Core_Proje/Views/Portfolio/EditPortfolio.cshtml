@@ -1,0 +1,76 @@
+﻿@model EntityLayer.Concrete.Portfolio
+
+@{
+    ViewData["Title"] = "EditPortfolio";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("EditPortfolio", "Portfolio", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-description"> Proje Düzenleme Paneli </p>
+
+                @* Mevcut değerleri koruyan gizli inputlar *@
+                @Html.HiddenFor(x => x.PortfolioID)
+                @Html.HiddenFor(x => x.ImageUrl)
+                @Html.HiddenFor(x => x.ImageUrl2)
+                @Html.HiddenFor(x => x.Platform)
+
+                <br />
+                @Html.Label("Proje Başlığı")
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+                <br />
+
+                <label>Büyük Proje Görseli (Görsel 1)</label>
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <div class="mb-2">
+                        <img src="@Model.ImageUrl" alt="Görsel 1" style="width: 120px; border-radius: 6px;" />
+                    </div>
+                }
+                <input type="file" name="ImageFile1" class="form-control" accept="image/*" />
+                <br />
+
+                <label>Detay / Önizleme Görseli (Görsel 2)</label>
+                @if (!string.IsNullOrEmpty(Model.ImageUrl2))
+                {
+                    <div class="mb-2">
+                        <img src="@Model.ImageUrl2" alt="Görsel 2" style="width: 120px; border-radius: 6px;" />
+                    </div>
+                }
+                <input type="file" name="ImageFile2" class="form-control" accept="image/*" />
+                <br />
+
+                <label>Platform / Teknoloji Küçük İkonu</label>
+                @if (!string.IsNullOrEmpty(Model.Platform))
+                {
+                    <div class="mb-2">
+                        <img src="@Model.Platform" alt="Platform İkonu" style="width: 50px; height: 50px; object-fit: contain; background: #fff; padding: 4px; border-radius: 6px;" />
+                    </div>
+                }
+                <input type="file" name="PlatformFile" class="form-control" accept="image/*" />
+                <br />
+
+                <label>Proje URL</label>
+                @Html.TextBoxFor(x => x.ProjectUrl, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.ProjectUrl, "", new { @class = "text-danger" })
+                <br />
+
+                <label>Fiyat</label>
+                @Html.TextBoxFor(x => x.Price, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Price, "", new { @class = "text-danger" })
+                <br />
+
+                <label>Tamamlanma Oranı</label>
+                @Html.TextBoxFor(x => x.Value, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Value, "", new { @class = "text-danger" })
+                <br />
+
+                <button type="submit" class="btn btn-warning">Güncelle</button>
+            </div>
+        </div>
+    </div>
+}

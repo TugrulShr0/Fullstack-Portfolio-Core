@@ -1,0 +1,53 @@
+﻿@model EntityLayer.Concrete.Experience
+
+@{
+    ViewData["Title"] = "Yeni Deneyim Ekle";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-info mb-4">
+                <i class="mdi mdi-plus-circle-outline mr-2"></i> Yeni Deneyim Ekleme Paneli
+            </h4>
+
+            @using (Html.BeginForm("AddExperience", "Experience", FormMethod.Post, new { @class = "forms-sample", enctype = "multipart/form-data" }))
+            {
+                <div class="form-group">
+                    <label class="text-muted font-weight-bold">Başlık / Şirket</label>
+                    <input type="text" class="form-control text-white" name="Name" placeholder="Örn: C# .NET Geliştirici" required />
+                </div>
+
+                <div class="form-group">
+                    <label class="text-muted font-weight-bold">Çalışma Tarihi Aralığı</label>
+                    <input type="text" class="form-control text-white" name="Date" placeholder="Örn: 2022 - 2024" required />
+                </div>
+
+                <div class="form-group">
+                    <label class="text-muted font-weight-bold">Firma / Deneyim Görseli Seç</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-dark border-secondary text-muted"><i class="mdi mdi-image"></i></span>
+                        </div>
+                        <input type="file" class="form-control text-white" name="Picture" accept="image/*" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="text-muted font-weight-bold">Açıklama</label>
+                    <textarea class="form-control text-white" name="Description" rows="6" placeholder="Görevler, sorumluluklar ve kazanımlar..."></textarea>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary mr-2 btn-icon-text">
+                        <i class="mdi mdi-content-save-outline btn-icon-prepend"></i> Kaydet
+                    </button>
+                    <a href="/Experience/Index" class="btn btn-dark btn-icon-text">
+                        <i class="mdi mdi-cancel btn-icon-prepend"></i> İptal
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

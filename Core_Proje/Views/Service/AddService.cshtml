@@ -1,0 +1,30 @@
+﻿@model EntityLayer.Concrete.Service
+
+@{
+    ViewData["Title"] = "AddService";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("AddService", "Service", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-description"> Hizmet Ekleme Paneli </p>
+                <br />
+
+                <label>Hizmet Başlığı</label>
+                @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Title, "", new { @class = "text-danger" })
+                <br />
+
+                <label>Hizmet Görseli / İkonu (Dosya Seç)</label>
+                <input type="file" name="ImageFile" class="form-control" accept="image/*" />
+                @Html.ValidationMessageFor(x => x.ImageUrl, "", new { @class = "text-danger" })
+                <br />
+
+                <button type="submit" class="btn btn-outline-primary">Kaydet</button>
+            </div>
+        </div>
+    </div>
+}

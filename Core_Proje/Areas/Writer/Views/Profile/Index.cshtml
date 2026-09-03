@@ -1,0 +1,55 @@
+﻿@model Core_Proje.Areas.Writer.Models.UserEditViewModel
+@{
+    ViewData["Title"] = "Profil Düzenle";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Profil Bilgilerini Düzenle</h4>
+            <p class="card-description">Kişisel bilgilerinizi ve şifrenizi buradan güncelleyebilirsiniz.</p>
+
+            <form class="forms-sample" method="post" enctype="multipart/form-data">
+                <!-- Validasyon ve Şifre Hatalarını Gösterir -->
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3 font-weight-bold"></div>
+
+                <div class="form-group">
+                    <label for="txtName">Adınız</label>
+                    <input type="text" asp-for="Name" class="form-control" id="txtName" placeholder="Adınız" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtSurname">Soyadınız</label>
+                    <input type="text" asp-for="Surname" class="form-control" id="txtSurname" placeholder="Soyadınız" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="filePicture">Profil Resmi</label>
+                    <input type="file" asp-for="Picture" class="form-control-file" id="filePicture">
+                </div>
+
+                <hr class="my-4" />
+                <p class="text-muted small">Şifrenizi değiştirmek istemiyorsanız aşağıdaki şifre alanlarını boş bırakabilirsiniz.</p>
+
+                <div class="form-group">
+                    <label for="txtCurrentPassword">Mevcut Şifreniz</label>
+                    <input type="password" asp-for="CurrentPassword" class="form-control" id="txtCurrentPassword" placeholder="Mevcut Şifreniz">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtPassword">Yeni Şifreniz</label>
+                    <input type="password" asp-for="Password" class="form-control" id="txtPassword" placeholder="Yeni Şifreniz">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtPasswordConfirm">Yeni Şifre Tekrar</label>
+                    <input type="password" asp-for="PasswordConfirm" class="form-control" id="txtPasswordConfirm" placeholder="Yeni Şifre Tekrar">
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Güncelle</button>
+                <a href="/Writer/Dashboard/Index/" class="btn btn-light">İptal</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@using EntityLayer.Concrete
+@model List<Feature>
+
+@foreach (var item in Model)
+{
+    <div class="container py-5">
+        <div class="row align-items-center justify-content-center" style="min-height: 480px;">
+            <!-- Sol: Yuvarlak Profil Fotoğrafı -->
+            <div class="col-lg-5 col-md-6 text-center mb-4 mb-md-0">
+                <div class="d-inline-block p-2 rounded-circle shadow-lg" style="background: linear-gradient(135deg, #f39c12, #f1c40f);">
+                    <img src="@item.ImageUrl"
+                         alt="@item.Name"
+                         class="rounded-circle img-fluid"
+                         style="width: 320px; height: 320px; object-fit: cover; object-position: center top; display: block;"
+                         onerror="this.src='/corona-free-dark-bootstrap-admin-template-1.0.0/template/assets/images/faces/face1.jpg';" />
+                </div>
+            </div>
+
+            <!-- Sağ: Tanıtım Metinleri -->
+            <div class="col-lg-6 col-md-6 text-md-left text-center pl-lg-5">
+                <span class="text-uppercase text-muted font-weight-bold" style="letter-spacing: 2px; font-size: 0.9rem;">
+                    @item.Header
+                </span>
+                <h1 class="display-4 font-weight-bold text-dark my-2">
+                    @item.Name
+                </h1>
+                <p class="lead text-secondary mb-4" style="font-size: 1.25rem;">
+                    @item.Title
+                </p>
+                <a href="#contact" class="btn btn-warning btn-lg px-4 py-3 shadow font-weight-bold rounded-pill" style="transition: transform 0.2s;">
+                    Bana Ulaşın &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+}

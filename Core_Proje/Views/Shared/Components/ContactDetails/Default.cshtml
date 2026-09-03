@@ -1,0 +1,49 @@
+﻿@using EntityLayer.Concrete
+@model List<Contact>
+
+<div class="col-md-6" data-aos="fade-left" data-aos-delay="300">
+    @foreach (var item in Model)
+    {
+        <div class="mt-3 px-1">
+            <div class="h5">İletişim Kanallarım</div>
+            <p>Aklınızdaki soruları sormak veya projeleriniz hakkında konuşmak için sol taraftaki formu doldurabilirsiniz.</p>
+            <p>Doğrudan bağlantı kurmak isterseniz aşağıdaki iletişim kanallarını kullanabilirsiniz.</p>
+            <p>En kısa sürede görüşmek üzere!</p>
+        </div>
+
+        <div class="mt-4 px-1">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="pb-1">Gmail:</div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="pb-1 fw-bolder">
+                        <a href="mailto:@item.Mail">@item.Mail</a>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div class="pb-1">LinkedIn:</div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="pb-1 fw-bolder">
+                        <a href="https://www.linkedin.com/in/tu%C4%9Frul-%C5%9Fahar-73745128b/"
+                           target="_blank">
+                            linkedin.com/in/tuğrul-şahar
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div class="pb-1">Telefon:</div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="pb-1 fw-bolder">
+                        <a href="tel:@item.Phone">@item.Phone</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

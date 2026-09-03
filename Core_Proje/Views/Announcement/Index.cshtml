@@ -1,0 +1,71 @@
+@using EntityLayer.Concrete
+@model List<Announcement>
+
+@{
+    ViewData["Title"] = "Duyuru Listesi";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="card-title mb-0">
+                    <i class="mdi mdi-bullhorn text-info mr-2"></i> Duyuru Yönetim Paneli
+                </h4>
+                <a href="/Announcement/AddAnnouncement/" class="btn btn-outline-success">
+                    <i class="mdi mdi-plus-circle mr-1"></i> Yeni Duyuru Ekle
+                </a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover text-white">
+                    <thead>
+                        <tr class="text-muted">
+                            <th style="width: 5%;">#</th>
+                            <th style="width: 25%;">BAŞLIK</th>
+                            <th style="width: 15%;">TÜR / DURUM</th>
+                            <th style="width: 20%;">TARİH</th>
+                            <th style="width: 20%;">SİL</th>
+                            <th style="width: 15%;">DÜZENLE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            int count = 0;
+                            foreach (var item in Model)
+                            {
+                                count++;
+                                <tr>
+                                    <td><span class="badge badge-outline-primary">@count</span></td>
+                                    <td class="font-weight-bold">@item.Title</td>
+                                    <td>
+                                        <span class="badge badge-info">@item.Status</span>
+                                    </td>
+                                    <td>@(((DateTime)item.Date).ToString("dd.MM.yyyy HH:mm"))</td>
+                                    <td>
+                                        <a href="/Announcement/DeleteAnnouncement/@item.ID" onclick="return confirm('Bu duyuruyu silmek istediğinize emin misiniz?');" class="btn btn-outline-danger btn-sm">
+                                            <i class="mdi mdi-delete"></i> Sil
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="/Announcement/EditAnnouncement/@item.ID" class="btn btn-outline-warning btn-sm">
+                                            <i class="mdi mdi-lead-pencil"></i> Düzenle
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center text-muted py-4">Henüz yayınlanmış bir duyuru bulunmuyor.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

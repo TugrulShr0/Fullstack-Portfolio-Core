@@ -1,0 +1,190 @@
+﻿@using EntityLayer.Concrete
+@model List<WriterUser>
+
+@{
+    ViewData["Title"] = "Yazar İşlemleri (Ajax)";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<div class="row">
+    <!-- ÜST KART: LİSTELEME VE TABLO ALANI -->
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="card-title mb-0">
+                        <i class="mdi mdi-account-multiple-outline text-primary mr-2"></i> Yazar Listesi (Ajax)
+                    </h4>
+                    <button type="button" id="btngetlistall" class="btn btn-primary btn-icon-text">
+                        <i class="mdi mdi-refresh btn-icon-prepend"></i> Verileri Getir / Yenile
+                    </button>
+                </div>
+
+                <!-- Dinamik Liste Tablosu Alanı -->
+                <div class="table-responsive" id="listuser">
+                    <div class="card bg-dark border border-secondary text-center p-4">
+                        <i class="mdi mdi-account-search-outline display-4 text-muted mb-2"></i>
+                        <span class="text-muted">Kullanıcı listesini görüntülemek için yukarıdaki <strong>"Verileri Getir / Yenile"</strong> butonuna basınız.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ALT KART: YENİ YAZAR EKLEME FORMU -->
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title text-info mb-4">
+                    <i class="mdi mdi-account-plus-outline mr-2"></i> Yeni Yazar Ekle (Ajax)
+                </h4>
+
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label class="text-muted font-weight-bold">Ad</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-dark border-secondary text-muted"><i class="mdi mdi-account"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-white" id="inpname" placeholder="Yazarın Adı" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label class="text-muted font-weight-bold">Soyad</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-dark border-secondary text-muted"><i class="mdi mdi-account-box"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-white" id="inpsurname" placeholder="Yazarın Soyadı" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 form-group">
+                        <label class="text-muted font-weight-bold">Kullanıcı Adı</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-dark border-secondary text-muted"><i class="mdi mdi-at"></i></span>
+                            </div>
+                            <input type="text" class="form-control text-white" id="inpusername" placeholder="Kullanıcı Adı" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 form-group">
+                        <label class="text-muted font-weight-bold">E-Posta Adresi</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-dark border-secondary text-muted"><i class="mdi mdi-email-outline"></i></span>
+                            </div>
+                            <input type="email" class="form-control text-white" id="inpmail" placeholder="ornek@mail.com" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 form-group">
+                        <label class="text-muted font-weight-bold">Şifre</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-dark border-secondary text-muted"><i class="mdi mdi-lock-outline"></i></span>
+                            </div>
+                            <input type="password" class="form-control text-white" id="inppassword" placeholder="Güçlü bir şifre girin" autocomplete="new-password" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-right mt-3">
+                    <button type="button" id="btnadduser" class="btn btn-success btn-lg btn-icon-text">
+                        <i class="mdi mdi-content-save-outline btn-icon-prepend"></i> Yazarı Kaydet
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            // 1. Verileri Getir / Yenile
+            $("#btngetlistall").click(function () {
+                $.ajax({
+                    contentType: "application/json",
+                    dataType: "json",
+                    type: "GET",
+                    url: "/WriterUser/ListUser/",
+                    success: function (funk) {
+                        let users = typeof funk === "string" ? jQuery.parseJSON(funk) : funk;
+
+                        let htmlst = `<table class="table table-hover text-white">
+                                        <thead>
+                                            <tr class="text-muted">
+                                                <th style="width: 8%;">#</th>
+                                                <th style="width: 25%;">AD SOYAD</th>
+                                                <th style="width: 25%;">KULLANICI ADI</th>
+                                                <th style="width: 42%;">E-POSTA</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>`;
+
+                        $.each(users, (index, value) => {
+                            let name = value.Name || value.name || '-';
+                            let surname = value.Surname || value.surname || '-';
+                            let userName = value.UserName || value.userName || '-';
+                            let email = value.Email || value.email || '-';
+
+                            htmlst += `<tr>
+                                        <td><span class="badge badge-outline-primary">${index + 1}</span></td>
+                                        <td class="font-weight-bold">${name} ${surname}</td>
+                                        <td><label class="badge badge-dark text-light border border-secondary">${userName}</label></td>
+                                        <td><i class="mdi mdi-email-open-outline text-muted mr-1"></i>${email}</td>
+                                       </tr>`;
+                        });
+
+                        htmlst += `</tbody></table>`;
+                        $("#listuser").html(htmlst);
+                    },
+                    error: function () {
+                        alert("Kullanıcılar listelenirken bir hata oluştu.");
+                    }
+                });
+            });
+
+            // 2. Yazar Kaydet
+            $("#btnadduser").click(function () {
+                let userValues = {
+                    Name: $("#inpname").val(),
+                    Surname: $("#inpsurname").val(),
+                    UserName: $("#inpusername").val(),
+                    Email: $("#inpmail").val(),
+                    PasswordHash: $("#inppassword").val()
+                };
+
+                if (!userValues.UserName || !userValues.Email) {
+                    alert("Lütfen kullanıcı adı ve e-posta alanlarını doldurunuz!");
+                    return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/WriterUser/AddUser/",
+                    data: userValues,
+                    success: function () {
+                        alert("Yazar başarıyla eklendi!");
+                        $("#inpname").val('');
+                        $("#inpsurname").val('');
+                        $("#inpusername").val('');
+                        $("#inpmail").val('');
+                        $("#inppassword").val('');
+                        $("#btngetlistall").click(); // Listeyi otomatik tazeler
+                    },
+                    error: function (xhr) {
+                        console.log("Hata Detayı:", xhr.responseText);
+                        alert("Kullanıcı eklenirken hata oluştu! Şifre kurallarını (Büyük-küçük harf, rakam ve sembol) kontrol ediniz.");
+                    }
+                });
+            });
+
+        });
+    </script>
+}

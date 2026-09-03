@@ -1,0 +1,57 @@
+﻿@model EntityLayer.Concrete.Experience
+
+@{
+    ViewData["Title"] = "Deneyim Düzenle";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-warning mb-4">
+                <i class="mdi mdi-lead-pencil mr-2"></i> Deneyim Düzenleme Paneli
+            </h4>
+
+            <form class="forms-sample" method="post" enctype="multipart/form-data">
+                <!-- ID ve Mevcut Görsel Yolunu Saklayan Gizli Alanlar -->
+                <input type="hidden" asp-for="ExperinceID" />
+                <input type="hidden" asp-for="ImageUrl" />
+
+                <div class="form-group">
+                    <label class="text-muted font-weight-bold">Başlık / Şirket</label>
+                    <input type="text" class="form-control text-white" asp-for="Name" placeholder="Deneyim Başlığı" required />
+                </div>
+
+                <div class="form-group">
+                    <label class="text-muted font-weight-bold">Tarih Aralığı</label>
+                    <input type="text" class="form-control text-white" asp-for="Date" placeholder="Örn: 2022 - 2024" required />
+                </div>
+
+                <div class="form-group row align-items-center">
+                    <div class="col-auto">
+                        <label class="text-muted font-weight-bold d-block">Mevcut Görsel</label>
+                        <img src="@Model.ImageUrl" alt="Mevcut Görsel" style="width: 70px; height: 70px; border-radius: 8px; object-fit: cover;" class="border border-secondary" onerror="this.src='/corona-free-dark-bootstrap-admin-template-1.0.0/template/assets/images/faces/face1.jpg';" />
+                    </div>
+                    <div class="col">
+                        <label class="text-muted font-weight-bold">Yeni Görsel Seç (Değiştirmek İstemiyorsanız Boş Bırakın)</label>
+                        <input type="file" class="form-control text-white" name="Picture" accept="image/*" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="text-muted font-weight-bold">Açıklama</label>
+                    <textarea class="form-control text-white" asp-for="Description" rows="5" placeholder="Deneyim detayları..."></textarea>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-warning mr-2">
+                        <i class="mdi mdi-check mr-1"></i> Değişiklikleri Kaydet
+                    </button>
+                    <a href="/Experience/Index/" class="btn btn-dark">
+                        <i class="mdi mdi-cancel mr-1"></i> İptal
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

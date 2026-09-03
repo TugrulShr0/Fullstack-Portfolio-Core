@@ -1,0 +1,33 @@
+@model Core_Proje.Models.RoleViewModel
+
+@{
+    ViewData["Title"] = "Yeni Rol Ekle";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-success mb-4">
+                <i class="mdi mdi-plus-circle-outline mr-2"></i> Yeni Rol Tanımlama Paneli
+            </h4>
+
+            <form class="forms-sample" method="post" asp-action="AddRole">
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    <label class="text-muted font-weight-bold">Rol Adı (Örn: Admin, Moderator, Writer)</label>
+                    <input type="text" class="form-control text-white" asp-for="RoleName" placeholder="Rol adını giriniz..." required />
+                    <span asp-validation-for="RoleName" class="text-danger"></span>
+                </div>
+
+                <div class="text-danger mb-3" asp-validation-summary="ModelOnly"></div>
+
+                <button type="submit" class="btn btn-success mr-2">
+                    <i class="mdi mdi-content-save mr-1"></i> Rolü Kaydet
+                </button>
+                <a href="/Role/Index/" class="btn btn-dark">İptal</a>
+            </form>
+        </div>
+    </div>
+</div>
